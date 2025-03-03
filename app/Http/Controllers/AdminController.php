@@ -97,30 +97,80 @@ class AdminController extends Controller
     }
 
     public function categories(){
-        
+        $categories = Category::orderBy('id', 'DESC')->paginate(10);
+        return view('admin.categories', compact('categories'));
     }
 
     public function category_add(){
-        
+        return view('admin.category-add');
     }
 
     public function category_store(Request $request){
-        
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:brands,slug',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $image = $request->file('image');
+        $file_extention = $request->file('image')->extension();
+        $file_name = Carbon::now()->timestamp.'.'.$file_extention;
+        $this->GenerateCategoryThumbailsImage($image, $file_name);
+        $category->image = $file_name;
+        $category->save();
+        return redirect()->route('admin.categories')->with('status', 'Category has been added succesfully!');
     }
 
     public function GenerateCategoryThumbailsImage($image, $imageName){
+        $destinationPath = public_path('uploads/categories');
+        $img = Image::read($image->path());
+        $img->cover(124, 124, 'top');
+        $img->resize(124, 124,  function($constraint){
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$imageName);
     }
 
     public function category_edit($id){
-        
+        $category = Category::find($id);
+        return view('admin.category-edit', compact('category'));
     }
 
     public function category_update(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug,'.$request->id,
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        if($request->hasFile('image')){
+            if(File::exists(public_path('uploads/categories').'/'.$category->image)){
+                File::delete(public_path('uploads/categories').'/'.$category->image);
+            }
+            $image = $request->file('image');
+            $file_extention = $request->file('image')->extension();
+            $file_name = Carbon::now()->timestamp.'.'.$file_extention;
+            $this->GenerateCategoryThumbailsImage($image, $file_name);
+            $category->image = $file_name;
+        }
         
+        $category->save();
+        return redirect()->route('admin.categories')->with('status', 'Category has been update succesfully!');
     }
 
+
     public function category_delete($id){
-       
+        $category = Category::find($id);
+        if(File::exists(public_path('uploads/categories').'/'.$category->image)){
+            File::delete(public_path('uploads/categories').'/'.$category->image);
+        }
+        $category->delete();
+        return redirect()->route('admin.categories')->with('status', 'Category has been deleted successfully!');
     }
 
     public function products(){
@@ -321,26 +371,58 @@ class AdminController extends Controller
     }
 
     public function coupons(){
-        
+        $coupons = Coupon::orderBy('expiry_date', 'DESC')->paginate(12);
+        return view('admin.coupons', compact('coupons'));
     }
 
     public function coupon_add(){
-       
+        return view('admin.coupon-add');
     }
 
     public function coupon_store(Request $request){
-       
+        $request->validate([
+            'code' => 'required',
+            'type' => 'required',
+            'value' => 'required|numeric',
+            'cart_value' => 'required|numeric',
+            'expiry_date' => 'required|date'
+        ]);
+        $coupon = new Coupon();
+        $coupon->code = $request->code;
+        $coupon->type = $request->type;
+        $coupon->value = $request->value;
+        $coupon->cart_value = $request->cart_value;
+        $coupon->expiry_date = $request->expiry_date;
+        $coupon->save();
+        return redirect()->route('admin.coupons')->with('status', 'Conpon has been added successfully!');
     }
 
     public function coupon_edit($id){
-        
+        $coupon = Coupon::find($id);
+        return view('admin.coupon-edit', compact('coupon'));
     }
 
     public function coupon_update(Request $request){
-       
+        $request->validate([
+            'code' => 'required',
+            'type' => 'required',
+            'value' => 'required|numeric',
+            'cart_value' => 'required|numeric',
+            'expiry_date' => 'required|date'
+        ]);
+        $coupon =Coupon::find($request->id);
+        $coupon->code = $request->code;
+        $coupon->type = $request->type;
+        $coupon->value = $request->value;
+        $coupon->cart_value = $request->cart_value;
+        $coupon->expiry_date = $request->expiry_date;
+        $coupon->save();
+        return redirect()->route('admin.coupons')->with('status', 'Conpon has been update successfully!');
     }
 
     public function coupon_delete($id){
-       
+        $coupon = Coupon::find($id);
+        $coupon->delete();
+        return redirect()->route('admin.coupons')->with("status", 'Conpon has been deleted successfully!');
     }
 }
