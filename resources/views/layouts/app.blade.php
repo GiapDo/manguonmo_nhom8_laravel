@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Allura&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/css/plugins/swiper.min.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
@@ -256,7 +257,7 @@
       }
   
       .logo__image {
-        max-width: 80px;
+        max-width: 50px;
       }
     </style>
     <div class="header-mobile header_sticky">
@@ -270,7 +271,7 @@
   
         <div class="logo">
           <a href="{{route('home.index')}}">
-            <img src="{{ asset('assets/images/logo.png')}}" alt="Uomo" class="logo__image d-block" />
+            <img src="{{ asset('assets/images/logo.png')}}" alt="Uomo" height="20px" />
           </a>
         </div>
   
@@ -316,10 +317,7 @@
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
               <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
-              </li>
-              <li class="navigation__item">
-                <a href="contact.html" class="navigation__link">Contact</a>
+                <a href="{{route('home.contact')}}" class="navigation__link">Contact</a>
               </li>
             </ul>
           </div>
@@ -404,12 +402,9 @@
               <li class="navigation__item">
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
-              <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
-              </li>
-              <li class="navigation__item">
-                <a href="contact.html" class="navigation__link">Contact</a>
-              </li>
+              {{-- <li class="navigation__item">
+                <a href="{{route('home.contact')}}" class="navigation__link">Contact</a>
+              </li> --}}
             </ul>
           </nav>
   
@@ -502,19 +497,73 @@
               </span>
               @endif
             </a>
+            
+                        <!-- Icon Logout -->
+            <a href="{{ route('logout') }}" 
+            class="header-tools__item header-tools__logout" 
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+            </svg>
+            </a>
+
+            <!-- Form Logout -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+            </form>
           </div>
         </div>
       </div>
     </header>
     @yield('content')
   
+  
     <footer class="footer footer_type_2">
       <div class="footer-bottom">
         <div class="container d-md-flex align-items-center">
           <span class="footer-copyright me-auto">©2025 Nhóm 8</span>
           <div class="footer-settings d-md-flex align-items-center">
-            Do Phuong&Nguyen Phuc
+            Đỗ Phương&Nguyễn Phúc
           </div>
+        </div>
+      </div>
+    </footer>
+  
+  
+    <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
+      <div class="row text-center">
+        <div class="col-4">
+          <a href="{{route('home.index')}}" class="footer-mobile__link d-flex flex-column align-items-center">
+            <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <use href="#icon_home" />
+            </svg>
+            <span>Home</span>
+          </a>
+        </div>
+  
+        <div class="col-4">
+          <a href="{{route('home.index')}}" class="footer-mobile__link d-flex flex-column align-items-center">
+            <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <use href="#icon_hanger" />
+            </svg>
+            <span>Shop</span>
+          </a>
+        </div>
+  
+        <div class="col-4">
+          <a href="{{route('home.index')}}" class="footer-mobile__link d-flex flex-column align-items-center">
+            <div class="position-relative">
+              <svg class="d-block" width="18" height="18" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <use href="#icon_heart" />
+              </svg>
+              <span class="wishlist-amount d-block position-absolute js-wishlist-count">3</span>
+            </div>
+            <span>Wishlist</span>
+          </a>
         </div>
       </div>
     </footer>
@@ -525,6 +574,7 @@
     <script src="{{ asset('assets/js/plugins/jquery.min.js')}}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap-slider.min.js')}}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/swiper.min.js')}}"></script>
     <script src="{{ asset('assets/js/plugins/countdown.js')}}"></script>
     <script src="{{ asset('assets/js/theme.js')}}"></script>

@@ -62,6 +62,7 @@
             </div>
           </div>
         </div>
+
         <div class="accordion" id="brand-filters">
           <div class="accordion-item mb-4 pb-3">
             <h5 class="accordion-header" id="accordion-heading-brand">
@@ -154,9 +155,10 @@
                   <div class="slideshow-text container p-3 p-xl-5">
                     <h2
                       class="text-uppercase section-title fw-normal mb-3 animate animate_fade animate_btt animate_delay-2">
-                      Women's <br /><strong>ACCESSORIES</strong></h2>
-                    <p class="mb-0 animate animate_fade animate_btt animate_delay-5">Accessories are the best way to
-                      update your look. Add a title edge with new styles and new colors, or go for timeless pieces.</h6>
+                      IPhone16 <br /><strong>New collection</strong></h2>
+                    <p class="mb-0 animate animate_fade animate_btt animate_delay-5">
+                      Được tích hợp vào iPhone, Apple Intelligence giúp bạn viết lách, thể hiện bản thân và hoàn thành công việc dễ dàng. Với tính năng bảo vệ quyền riêng tư đột phá, Apple Intelligence giúp bạn yên tâm rằng không một ai khác có thể truy cập dữ liệu của bạn, kể cả Apple
+                    </h6>
                   </div>
                 </div>
                 <div class="slide-split_media position-relative">
@@ -168,47 +170,6 @@
               </div>
             </div>
 
-            <div class="swiper-slide">
-              <div class="slide-split h-100 d-block d-md-flex overflow-hidden">
-                <div class="slide-split_text position-relative d-flex align-items-center"
-                  style="background-color: #f5e6e0;">
-                  <div class="slideshow-text container p-3 p-xl-5">
-                    <h2
-                      class="text-uppercase section-title fw-normal mb-3 animate animate_fade animate_btt animate_delay-2">
-                      Women's <br /><strong>ACCESSORIES</strong></h2>
-                    <p class="mb-0 animate animate_fade animate_btt animate_delay-5">Accessories are the best way to
-                      update your look. Add a title edge with new styles and new colors, or go for timeless pieces.</h6>
-                  </div>
-                </div>
-                <div class="slide-split_media position-relative">
-                  <div class="slideshow-bg" style="background-color: #f5e6e0;">
-                    <img loading="lazy" src="assets/images/shop/shop_banner3.jpg" width="630" height="450"
-                      alt="Women's accessories" class="slideshow-bg__img object-fit-cover" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="slide-split h-100 d-block d-md-flex overflow-hidden">
-                <div class="slide-split_text position-relative d-flex align-items-center"
-                  style="background-color: #f5e6e0;">
-                  <div class="slideshow-text container p-3 p-xl-5">
-                    <h2
-                      class="text-uppercase section-title fw-normal mb-3 animate animate_fade animate_btt animate_delay-2">
-                      Women's <br /><strong>ACCESSORIES</strong></h2>
-                    <p class="mb-0 animate animate_fade animate_btt animate_delay-5">Accessories are the best way to
-                      update your look. Add a title edge with new styles and new colors, or go for timeless pieces.</h6>
-                  </div>
-                </div>
-                <div class="slide-split_media position-relative">
-                  <div class="slideshow-bg" style="background-color: #f5e6e0;">
-                    <img loading="lazy" src="assets/images/shop/shop_banner3.jpg" width="630" height="450"
-                      alt="Women's accessories" class="slideshow-bg__img object-fit-cover" />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="container p-3 p-xl-5">
@@ -309,35 +270,16 @@
         
                     <div class="pc__info position-relative">
                         <p class="pc__category">{{$product->category->name}}</p>
-                        <h6 class="pc__title"><a href="details.html">{{$product->name}}</a></h6>
+                        <h6 class="pc__title"><a href="{{route('shop.product.details', ['product_slug' => $product->slug])}}">{{$product->name}}</a></h6>
                         <div class="product-card__price d-flex">
                         <span class="money price">
                             @if ($product->sale_price)
-                                <s>{{$product->regular_price}}</s> {{$product->sale_price}}                
+                                <s>{{number_format($product->regular_price, 0, '.', ',')}} VNĐ</s>
+                                {{number_format($product->sale_price, 0, '.', ',')}} VNĐ
                             @else
-                                {{$product->regular_price}}
+                              {{number_format($product->regular_price, 0, '.', ',')}} VNĐ
                             @endif
                         </span>
-                        </div>
-                        <div class="product-card__review d-flex align-items-center">
-                        <div class="reviews-group d-flex">
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_star" />
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_star" />
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_star" />
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_star" />
-                            </svg>
-                            <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_star" />
-                            </svg>
-                        </div>
-                        <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                         </div>
                         
                         @if (Cart::instance('wishlist')->content()->where('id', $product->id)->count() >0)

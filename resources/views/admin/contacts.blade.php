@@ -3,7 +3,7 @@
 <div class="main-content-inner">
     <div class="main-content-wrap">
         <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-            <h3>Coupons</h3>
+            <h3>All Messages</h3>
             <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                 <li>
                     <a href="{{route('admin.index')}}">
@@ -22,6 +22,15 @@
         <div class="wg-box">
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
+                    <form class="form-search">
+                        <fieldset class="name">
+                            <input type="text" placeholder="Search here..." class="" name="name"
+                                tabindex="2" value="" aria-required="true" required="">
+                        </fieldset>
+                        <div class="button-submit">
+                            <button class="" type="submit"><i class="icon-search"></i></button>
+                        </div>
+                    </form>
                 </div>
                 <a class="tf-button style-1 w208" href="{{route('admin.coupon.add')}}"><i
                         class="icon-plus"></i>Add new</a>
@@ -35,31 +44,26 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Code</th>
-                                <th>Type</th>
-                                <th>Value</th>
-                                <th>Cart Value</th>
-                                <th>Expiry Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Comment</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($coupons as $coupon)
+                            @foreach ($contacts as $contact)
                             <tr>
-                                <td>{{$coupon->id}}</td>
-                                <td>{{$coupon->code}}</td>
-                                <td>{{$coupon->type}}</td>
-                                <td>{{$coupon->value}}</td>
-                                <td>{{$coupon->cart_value}} VNĐ</td>
-                                <td>{{$coupon->expiry_date}}</td>
+                                <td>{{$contact->id}}</td>
+                                <td>{{$contact->name}}</td>
+                                <td>{{$contact->phone}}</td>
+                                <td>{{$contact->email}}</td>
+                                <td>{{$contact->comment}}</td>
+                                <td>{{$contact->created_at}}</td>
                                 <td>
                                     <div class="list-icon-function">
-                                        <a href="{{route('admin.coupon.edit', ['id'=>$coupon->id])}}">
-                                            <div class="item edit">
-                                                <i class="icon-edit-3"></i>
-                                            </div>
-                                        </a>
-                                        <form action="{{route('admin.coupon.delete', ['id'=>$coupon->id])}}" method="POST">
+                                        <form action="{{route('admin.contact.delete', ['id' => $contact->id])}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <div class="item text-danger delete">
@@ -76,7 +80,7 @@
             </div>
             <div class="divider"></div>
             <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination">
-                {{$coupons->links('pagination::bootstrap-5')}}
+                {{$contacts->links('pagination::bootstrap-5')}}
             </div>
         </div>
     </div>
