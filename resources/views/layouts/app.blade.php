@@ -284,25 +284,6 @@
       </div>
   
       <nav class="header-mobile__navigation navigation d-flex flex-column w-100 position-absolute top-100 bg-body overflow-auto">
-        <div class="container">
-          <form action="#" method="GET" class="search-field position-relative mt-4 mb-3">
-            <div class="position-relative">
-              <input class="search-field__input w-100 border rounded-1" type="text" name="search-keyword"
-                placeholder="Search products" />
-              <button class="btn-icon search-popup__submit pb-0 me-2" type="submit">
-                <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <use href="#icon_search" />
-                </svg>
-              </button>
-              <button class="btn-icon btn-close-lg search-popup__reset pb-0 me-2" type="reset"></button>
-            </div>
-  
-            <div class="position-absolute start-0 top-100 m-0 w-100">
-              <div class="search-result"></div>
-            </div>
-          </form>
-        </div>
   
         <div class="container">
           <div class="overflow-hidden">
@@ -409,51 +390,6 @@
           </nav>
   
           <div class="header-tools d-flex align-items-center">
-            <div class="header-tools__item hover-container">
-              <div class="js-hover__open position-relative">
-                <a class="js-search-popup search-field__actor" href="#">
-                  <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <use href="#icon_search" />
-                  </svg>
-                  <i class="btn-icon btn-close-lg"></i>
-                </a>
-              </div>
-  
-              <div class="search-popup js-hidden-content">
-                <form action="#" method="GET" class="search-field container">
-                  <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
-                  <div class="position-relative">
-                    <input class="search-field__input search-popup__input w-100 fw-medium" type="text"
-                      name="search-keyword" placeholder="Search products" />
-                    <button class="btn-icon search-popup__submit" type="submit">
-                      <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_search" />
-                      </svg>
-                    </button>
-                    <button class="btn-icon btn-close-lg search-popup__reset" type="reset"></button>
-                  </div>
-  
-                  <div class="search-popup__results">
-                    <div class="sub-menu search-suggestion">
-                      <h6 class="sub-menu__title fs-base">Quicklinks</h6>
-                      <ul class="sub-menu__list list-unstyled">
-                        <li class="sub-menu__item"><a href="shop2.html" class="menu-link menu-link_us-s">New Arrivals</a>
-                        </li>
-                        <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Dresses</a></li>
-                        <li class="sub-menu__item"><a href="shop3.html" class="menu-link menu-link_us-s">Accessories</a>
-                        </li>
-                        <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Footwear</a></li>
-                        <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Sweatshirt</a></li>
-                      </ul>
-                    </div>
-  
-                    <div class="search-result row row-cols-5"></div>
-                  </div>
-                </form>
-              </div>
-            </div>
             @guest
             <div class="header-tools__item hover-container">
               <a href="{{route('login')}}" class="header-tools__item">
